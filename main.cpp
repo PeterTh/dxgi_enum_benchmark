@@ -14,6 +14,9 @@
 constexpr int NUM_IT = 500;
 constexpr int MAX_MODES = 10000;
 
+// Yes, this is really bad style
+// No, it really doesn't matter in this context
+// Just please don't copy/paste this into a real program
 DXGI_MODE_DESC modes[MAX_MODES];
 
 int main(int argc, char** argv) {
@@ -60,6 +63,8 @@ int main(int argc, char** argv) {
 		}
 
 		UINT numModes;
+		// We perform 2 calls per iteration, since that's the only way to really do a correct complete query
+		// given the way the API is set up
 		auto startTime = std::chrono::high_resolution_clock::now();
 		for(int i = 0; i < NUM_IT; ++i) {
 			output->GetDisplayModeList(DXGI_FORMAT_R8G8B8A8_UNORM, DXGI_ENUM_MODES_INTERLACED | DXGI_ENUM_MODES_SCALING, &numModes, NULL);
